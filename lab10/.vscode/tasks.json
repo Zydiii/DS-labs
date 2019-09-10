@@ -1,0 +1,190 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileBasenameNoExtension}",
+                "--std=c++17"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-fltk",
+            "type": "shell",
+            "command": "fltk-config",
+            "args": [
+                "--compile",
+                "${file}"
+                //"--std=c++17"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-fltk-multiple",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-I/usr/local/include",
+                "-I/usr/local/include/FL/images", 
+                "-I/usr/include/freetype2",
+                "-I/usr/include/libpng16",
+                "-D_LARGEFILE_SOURCE", 
+                "-D_LARGEFILE64_SOURCE", 
+                "-D_THREAD_SAFE", 
+                "-D_REENTRANT", 
+                "-o", 
+                "${fileBasenameNoExtension}",
+                "${fileDirname}/*.cpp", 
+                "/usr/local/lib/libfltk.a", 
+                "-lXrender",
+                "-lXcursor",
+                "-lXfixes",
+                "-lXext",
+                "-lXft",
+                "-lfontconfig",
+                "-lXinerama",
+                "-lpthread",
+                "-ldl",
+                "-lm",
+                "-lX11",
+                "--std=c++17"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-clang",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileBasenameNoExtension}",
+                "--std=c++11"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-fltk-multiple-clang",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-I/usr/local/include",
+                "-I/usr/local/include/FL/images", 
+                "-I/usr/include/freetype2",
+                "-I/usr/include/libpng16",
+                "-D_LARGEFILE_SOURCE", 
+                "-D_LARGEFILE64_SOURCE", 
+                "-D_THREAD_SAFE", 
+                "-D_REENTRANT", 
+                "-o", 
+                "${fileBasenameNoExtension}",
+                "${fileDirname}/*.cpp", 
+                "/usr/local/lib/libfltk.a", 
+                "-lXrender",
+                "-lXcursor",
+                "-lXfixes",
+                "-lXext",
+                "-lXft",
+                "-lfontconfig",
+                "-lXinerama",
+                "-lpthread",
+                "-ldl",
+                "-lm",
+                "-lX11",
+                "--std=c++17"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-multiple",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${fileDirname}/*.cpp",
+                "-o",
+                "${fileBasenameNoExtension}",
+                "--std=c++17"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-multiple-clang",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-g",
+                "${fileDirname}/*.cpp",
+                "-o",
+                "${fileBasenameNoExtension}",
+                "--std=c++11"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

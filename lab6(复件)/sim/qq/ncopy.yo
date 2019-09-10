@@ -1,0 +1,244 @@
+                            | #/* $begin ncopy-ys */
+                            | ##################################################################
+                            | # ncopy.ys - Copy a src block of len words to dst.
+                            | # Return the number of positive words (>0) contained in src.
+                            | #
+                            | # Include your name and ID here.
+                            | #
+                            | # Describe how and why you modified the baseline code.
+                            | #
+                            | ##################################################################
+                            | # Do not modify this portion
+                            | # Function prologue.
+                            | # %rdi = src, %rsi = dst, %rdx = len
+0x000:                      | ncopy:
+                            | ##################################################################
+                            | # You can modify this portion
+                            | # Loop header
+                            | 
+                            | # Best CPE: 6.80
+                            | # Average CPE: 6.85
+                            | # Best Score: 60.0
+                            | # Bytes: 967
+                            | 
+0x000: c0f2f8ffffffffffffff | 	iaddq $-8, %rdx
+0x00a: 72fe02000000000000   | 	jl Remain
+                            | 
+                            | # 8 members
+0x013:                      | Loop:
+0x013: 50870000000000000000 | 	mrmovq (%rdi), %r8
+0x01d: 50970800000000000000 | 	mrmovq 8(%rdi),	%r9
+0x027: 50a71000000000000000 | 	mrmovq 16(%rdi), %r10
+0x031: 50b71800000000000000 | 	mrmovq 24(%rdi), %r11
+0x03b: 50c72000000000000000 | 	mrmovq 32(%rdi), %r12
+0x045: 50d72800000000000000 | 	mrmovq 40(%rdi), %r13
+0x04f: 50e73000000000000000 | 	mrmovq 48(%rdi), %r14
+0x059: 50173800000000000000 | 	mrmovq 56(%rdi), %rcx
+                            | 
+0x063: 6288                 | 	andq %r8, %r8
+0x065: 76c400000000000000   | 	jg Bin_1
+0x06e:                      | Bin_0:
+0x06e: 6299                 |     andq %r9, %r9
+0x070: 76cf00000000000000   |     jg Bin_10
+0x079:                      | Bin_00:
+0x079: 62aa                 |     andq %r10, %r10
+0x07b: 76da00000000000000   |     jg Bin_100
+0x084:                      | Bin_000:
+0x084: 62bb                 |     andq %r11, %r11
+0x086: 76e500000000000000   |     jg Bin_1000
+0x08f:                      | Bin_0000:
+0x08f: 62cc                 |     andq %r12, %r12
+0x091: 76f000000000000000   |     jg Bin_10000
+0x09a:                      | Bin_00000:
+0x09a: 62dd                 |     andq %r13, %r13
+0x09c: 76fb00000000000000   |     jg Bin_100000
+0x0a5:                      | Bin_000000:
+0x0a5: 62ee                 |     andq %r14, %r14 
+0x0a7: 760601000000000000   | 	jg Bin_1000000
+0x0b0:                      | Bin_0000000:
+0x0b0: 6211                 | 	andq %rcx, %rcx
+0x0b2: 761101000000000000   |     jg Add_1
+0x0bb: 708702000000000000   | 	jmp Npos
+                            | ####################
+                            | 
+0x0c4:                      | Bin_1:
+0x0c4: 6299                 |     andq %r9, %r9
+0x0c6: 762401000000000000   |     jg Bin_11
+0x0cf:                      | Bin_10:
+0x0cf: 62aa                 |     andq %r10, %r10
+0x0d1: 762f01000000000000   |     jg Bin_110
+0x0da:                      | Bin_100:
+0x0da: 62bb                 |     andq %r11, %r11
+0x0dc: 763a01000000000000   |     jg Bin_1100
+0x0e5:                      | Bin_1000:
+0x0e5: 62cc                 |     andq %r12, %r12
+0x0e7: 764501000000000000   |     jg Bin_11000
+0x0f0:                      | Bin_10000:
+0x0f0: 62dd                 |     andq %r13, %r13
+0x0f2: 765001000000000000   |     jg Bin_110000
+0x0fb:                      | Bin_100000:
+0x0fb: 62ee                 |     andq %r14, %r14
+0x0fd: 765b01000000000000   | 	jg Bin_1100000	
+0x106:                      | Bin_1000000:
+0x106: 6211                 | 	andq %rcx, %rcx
+0x108: 766601000000000000   |     jg Add_2
+0x111:                      | Add_1:
+0x111: c0f00100000000000000 |     iaddq $1, %rax
+0x11b: 708702000000000000   |     jmp Npos
+                            | ####################
+                            | 
+0x124:                      | Bin_11:
+0x124: 62aa                 |     andq %r10, %r10
+0x126: 767901000000000000   |     jg Bin_111
+0x12f:                      | Bin_110:
+0x12f: 62bb                 |     andq %r11, %r11
+0x131: 768401000000000000   |     jg Bin_1110
+0x13a:                      | Bin_1100:
+0x13a: 62cc                 |     andq %r12, %r12
+0x13c: 768f01000000000000   |     jg Bin_11100
+0x145:                      | Bin_11000:
+0x145: 62dd                 |     andq %r13, %r13
+0x147: 769a01000000000000   |     jg Bin_111000
+0x150:                      | Bin_110000:
+0x150: 62ee                 | 	andq %r14, %r14
+0x152: 76a501000000000000   |     jg Bin_1110000
+0x15b:                      | Bin_1100000:
+0x15b: 6211                 |     andq %rcx, %rcx
+0x15d: 76b001000000000000   | 	jg Add_3
+0x166:                      | Add_2:
+0x166: c0f00200000000000000 |     iaddq $2, %rax
+0x170: 708702000000000000   |     jmp Npos
+                            | ####################
+                            | 
+0x179:                      | Bin_111:
+0x179: 62bb                 |     andq %r11, %r11
+0x17b: 76c301000000000000   |     jg Bin_1111
+0x184:                      | Bin_1110:
+0x184: 62cc                 |     andq %r12, %r12
+0x186: 76ce01000000000000   |     jg Bin_11110
+0x18f:                      | Bin_11100:
+0x18f: 62dd                 |     andq %r13, %r13
+0x191: 76d901000000000000   |     jg Bin_111100
+0x19a:                      | Bin_111000:
+0x19a: 62ee                 | 	andq %r14, %r14
+0x19c: 76e401000000000000   |     jg Bin_1111000
+0x1a5:                      | Bin_1110000:
+0x1a5: 6211                 |     andq %rcx, %rcx
+0x1a7: 76ef01000000000000   | 	jg Add_4	
+0x1b0:                      | Add_3:
+0x1b0: c0f00300000000000000 |     iaddq $3, %rax
+0x1ba: 708702000000000000   |     jmp Npos
+                            | ####################
+                            | 
+0x1c3:                      | Bin_1111:
+0x1c3: 62cc                 |     andq %r12, %r12
+0x1c5: 760202000000000000   |     jg Bin_11111
+0x1ce:                      | Bin_11110:
+0x1ce: 62dd                 | 	andq %r13, %r13
+0x1d0: 760d02000000000000   | 	jg Bin_111110
+0x1d9:                      | Bin_111100:
+0x1d9: 62ee                 |     andq %r14, %r14
+0x1db: 761802000000000000   |     jg Bin_1111100
+0x1e4:                      | Bin_1111000:
+0x1e4: 6211                 |     andq %rcx, %rcx
+0x1e6: 762302000000000000   |     jg Add_5
+0x1ef:                      | Add_4:
+0x1ef: c0f00400000000000000 |     iaddq $4, %rax
+0x1f9: 708702000000000000   |     jmp Npos
+                            | #####################
+                            | 
+0x202:                      | Bin_11111:
+0x202: 62dd                 |     andq %r13, %r13
+0x204: 763602000000000000   |     jg Bin_111111
+0x20d:                      | Bin_111110:
+0x20d: 62ee                 |     andq %r14, %r14
+0x20f: 764102000000000000   |     jg Bin_1111110
+0x218:                      | Bin_1111100:
+0x218: 6211                 |     andq %rcx, %rcx
+0x21a: 764c02000000000000   |     jg Add_6
+0x223:                      | Add_5:
+0x223: c0f00500000000000000 |     iaddq $5, %rax
+0x22d: 708702000000000000   |     jmp Npos
+                            | ####################
+                            | 
+0x236:                      | Bin_111111:
+0x236: 62ee                 |     andq %r14, %r14
+0x238: 765f02000000000000   |     jg Bin_1111111
+0x241:                      | Bin_1111110:
+0x241: 6211                 |     andq %rcx, %rcx
+0x243: 766a02000000000000   |     jg Add_7
+0x24c:                      | Add_6:
+0x24c: c0f00600000000000000 |     iaddq $6, %rax
+0x256: 708702000000000000   |     jmp Npos
+                            | ###################
+                            | 
+0x25f:                      | Bin_1111111:
+0x25f: 6211                 | 	andq %rcx, %rcx
+0x261: 767d02000000000000   | 	jg Add_8
+0x26a:                      | Add_7:
+0x26a: c0f00700000000000000 |     iaddq $7, %rax
+0x274: 708702000000000000   | 	jmp Npos
+                            | 
+0x27d:                      | Add_8:
+0x27d: c0f00800000000000000 | 	iaddq $8, %rax
+                            | 
+0x287:                      | Npos:
+0x287: 40860000000000000000 | 	rmmovq %r8, (%rsi)
+0x291: 40960800000000000000 | 	rmmovq %r9, 8(%rsi)
+0x29b: 40a61000000000000000 | 	rmmovq %r10, 16(%rsi)
+0x2a5: 40b61800000000000000 | 	rmmovq %r11, 24(%rsi)
+0x2af: 40c62000000000000000 | 	rmmovq %r12, 32(%rsi)
+0x2b9: 40d62800000000000000 | 	rmmovq %r13, 40(%rsi)
+0x2c3: 40e63000000000000000 | 	rmmovq %r14, 48(%rsi)
+0x2cd: 40163800000000000000 | 	rmmovq %rcx, 56(%rsi)
+                            | 
+0x2d7: c0f74000000000000000 | 	iaddq $64, %rdi
+0x2e1: c0f64000000000000000 | 	iaddq $64, %rsi
+0x2eb: c0f2f8ffffffffffffff | 	iaddq $-8, %rdx
+0x2f5: 751300000000000000   | 	jge Loop
+                            | 
+                            | # %rdx = 01234567
+0x2fe:                      | Remain:
+0x2fe: c0f20600000000000000 | 	iaddq $6, %rdx
+0x308: 728a03000000000000   | 	jl Final
+                            | 
+0x311:                      | Remain_Loop:
+0x311: 50870000000000000000 | 	mrmovq (%rdi), %r8
+0x31b: 50970800000000000000 | 	mrmovq 8(%rdi), %r9
+                            | 
+0x325: 6288                 | 	andq %r8, %r8
+0x327: 713a03000000000000   | 	jle R2
+0x330: c0f00100000000000000 | 	iaddq $1, %rax
+0x33a:                      | R2:
+0x33a: 6299                 | 	andq %r9, %r9
+0x33c: 714f03000000000000   | 	jle Remain_Npos
+0x345: c0f00100000000000000 | 	iaddq $1, %rax
+                            | 
+0x34f:                      | Remain_Npos:
+0x34f: 40860000000000000000 | 	rmmovq %r8, (%rsi)
+0x359: 40960800000000000000 | 	rmmovq %r9, 8(%rsi)
+0x363: c0f71000000000000000 | 	iaddq $16, %rdi
+0x36d: c0f61000000000000000 | 	iaddq $16, %rsi
+0x377: c0f2feffffffffffffff | 	iaddq $-2, %rdx
+0x381: 751103000000000000   | 	jge Remain_Loop
+                            | 
+                            | # %rdx = 01
+0x38a:                      | Final:
+0x38a: c0f20100000000000000 | 	iaddq $1, %rdx
+0x394: 72c603000000000000   | 	jl Done
+                            | 
+0x39d: 50a70000000000000000 |     mrmovq (%rdi), %r10
+0x3a7: 62aa                 | 	andq %r10, %r10
+0x3a9: 40a60000000000000000 |     rmmovq %r10, (%rsi)
+0x3b3: 71c603000000000000   |     jle Done
+0x3bc: c0f00100000000000000 |     iaddq $1, %rax
+                            | 
+                            | ##################################################################
+                            | # Do not modify the following section of code
+                            | # Function epilogue.
+0x3c6:                      | Done:
+0x3c6: 90                   | 	ret
+                            | ##################################################################
+                            | # Keep the following label at the end of your function
+0x3c7:                      | End:
+                            | #/* $end ncopy-ys */

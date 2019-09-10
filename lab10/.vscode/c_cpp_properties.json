@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "${workspaceFolder}",
+                "/home/goo/reference/fltk",
+                "/usr/include",
+                "/usr/local/include",
+                "/usr/local/lib",
+                "/usr/local/bin",
+                "${workspaceFolder}/lab/lab2"
+            ],
+            "defines": [],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "/home/goo/reference/fltk",
+                    "/usr/include",
+                    "/usr/include/tk",
+                    "/usr/include/tcl8.6",
+                    "/usr/local/include",
+                    "/usr/local/lib",
+                    "/usr/local/bin"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "compilerPath": "/usr/bin/gcc"
+        }
+    ],
+    "version": 4
+}
